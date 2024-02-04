@@ -51,16 +51,6 @@ routes.put('/editar_produto', (req, res, next)=>{
     })
 })
 
-// deletar produto
-routes.delete('/', (req, res, next) => {
-    const {id} = req.query
-    const index = dadosProdutos.findIndex((dados) => dados.id == id)
-    dadosProdutos.splice(index, 1)
-    res.status(200).send({
-        mensagem: `Produto com ID ${id} excluido.`
-    })
-})
-    
 
 // rota de produtos de materiais escolares
 routes.get('/materiais_escolares', (req, res, next) =>{
