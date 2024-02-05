@@ -3,7 +3,7 @@ const app = express();
 const produtos = require('./routes/produtos');
 const princial = require('./routes/princiapl');
 
-
+app.use(express.json())
 app.use('/', princial);
 app.use('/produtos',  produtos)
 

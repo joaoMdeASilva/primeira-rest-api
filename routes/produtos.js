@@ -7,7 +7,7 @@ routes.get('/', (req, res, next) =>{
     res.send({
         mensagem: 'Seja bem vindo(a) a rota de produtos!',
         rota: '/protudos/protudo_estoque',
-        query: [
+        body: [
             'nome_produto',
             'preco_produto',
         ]
@@ -21,16 +21,18 @@ routes.get('/protudo_estoque', (req, res, next) => {
 
 // rota para adicionar novos produtos
 routes.post('/', (req, res, next) => {
-    const {id, nome_produto, preco_produto} = req.query
-    
-    dadosProdutos.push({
+    const {id, nome, preco} = req.body
+    const body = {
         id: id,
-        nome: nome_produto,
-        preco: preco_produto
-    })
+        nome: nome,
+        preco: preco
+    }
+        
+    dadosProdutos.push(body)
     
-    res.status(200).send({
-        mensagem: `Produto ${nome_produto} com preço de R$${preco_produto} foram adicionados.`,
+    
+    res.status(201).send({
+        mensagem: `Produto ${nome} com preço de R$${preco} foram adicionados.`,
         rota: 'Coloque a rota /produtos/protudo_estoque para ver os produtos!',
     })
 
@@ -38,16 +40,18 @@ routes.post('/', (req, res, next) => {
 
 // editar produto
 routes.put('/editar_produto', (req, res, next)=>{
-    const {id, nome_produto, preco_produto} = req.query
+    const {id, nome, preco} = req.body
+
+
     const index = dadosProdutos.findIndex((dados)=> dados.id == id)
 
     nomeAnterior = dadosProdutos[index].nome
 
-    dadosProdutos[index].nome = nome_produto
-    dadosProdutos[index].preco = preco_produto
+    dadosProdutos[index].nome = nome
+    dadosProdutos[index].preco = preco
     
     res.status(201).send({
-        mensagem: `Nome do produto ${nome_produto} e preco atual R$${preco_produto} ` 
+        mensagem: `Nome do produto ${nome} e preco atual R$${preco} ` 
     })
 })
 
